@@ -19,7 +19,7 @@
     Mesa ocupada
     Restaurante lotado
     
-## Fazer pedido
+- Fazer pedido
 
 > (in) Argumentos de entrada:
 
@@ -35,7 +35,7 @@
 
     Produto em falta
     
-## Consultar status do pedido
+- Consultar status do pedido
 
 > (in) Argumentos de entrada:
 
