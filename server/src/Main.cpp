@@ -5,7 +5,7 @@ int main( void )
 {
     Server server;
 
-    server.teste();
+    server.listen();
 
     return 0;
 }
