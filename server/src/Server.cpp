@@ -26,6 +26,8 @@ Server::Server()
         std::cout << "Server::Server(): Error bind " << SERVER_IP << " with port " << SERVER_PORT << std::endl;
         exit( EXIT_FAILURE );
     }
+
+    menu = new Menu( DB_FILE );
 }
 
 
@@ -42,11 +44,12 @@ void Server::listen()
         std::cerr << "Server::listen(): Wait packets" << std::endl;
         n = recvfrom( udp_socket, ( char * ) buffer, BUFFER_SIZE, MSG_WAITALL, ( struct sockaddr * ) &client_address, &sock_len );
 
-        buffer[ n ] = '\0';
+        memset( buffer, 0, BUFFER_SIZE );
+        strncpy( buffer, menu->get_tables().dump().c_str(), BUFFER_SIZE );
 
-        json data = json::parse( buffer );
+        sendto( udp_socket, buffer, BUFFER_SIZE, 0, ( struct sockaddr * ) &client_address, sock_len );
 
-        std::cout <<  "Server::listen(): recv: " << data.dump() << std::endl;
+        std::cout <<  "Server::listen(): " << std::endl;
     }
 
 }

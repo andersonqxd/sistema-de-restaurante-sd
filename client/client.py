@@ -20,4 +20,8 @@ udp = socket.socket( socket.AF_INET, socket.SOCK_DGRAM )
 
 udp.sendto( json.dumps( data ).encode( 'utf-8' ), ( SERVER_IP, SERVER_PORT ) )
 
+data, addr = udp.recvfrom( 1024 )
+
+print(  data.decode( 'utf-8' ) )
+
 print( 'send!!!' )

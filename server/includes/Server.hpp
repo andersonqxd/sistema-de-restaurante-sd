@@ -7,11 +7,14 @@
 #include <arpa/inet.h>
 
 #include "Globals.hpp"
+#include "Menu.hpp"
 
 #define SERVER_PORT   7000
 #define SERVER_IP     "127.0.0.1"
 
 #define BUFFER_SIZE   1024
+
+#define DB_FILE       "./Mocks/db.json"
 
 
 /**
@@ -29,6 +32,8 @@ class Server
 
         struct sockaddr_in server_address;
         struct sockaddr_in client_address;
+
+        Menu * menu;
 
     public:
         /**
