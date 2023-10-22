@@ -1,0 +1,60 @@
+{
+    "tables": [
+        { 
+            "number": 1, 
+            "chairs": 2, 
+            "reserved": false 
+        },
+        { 
+            "number": 2, 
+            "chairs": 4, 
+            "reserved": false
+        },
+        { 
+            "number": 3, 
+            "chairs": 6, 
+            "reserved": false
+        }
+    ],
+
+    "menu": {
+        "entrada": [
+            {
+                "name": "Sopa de Abobora", 
+                "price": 12.50, 
+                "description": "Desfrute de uma saborosa sopa de abobora com croutons e creme de leite."
+            },
+            {
+                "name": "Bruschetta de Tomate e Manjericao",
+                "price": 14,
+                "description": "Deliciosas fatias de pao italiano cobertas com tomates frescos, manjericao e azeite de oliva."
+            }
+        ],
+
+        "principal": [
+            {
+                "name": "File Mignon ao Molho de Vinho Tinto",
+                "price": 36,
+                "description": "Um suculento file mignon grelhado, coberto com um molho encorpado de vinho tinto, acompanhado de batatas rusticas e legumes da estacao."
+            },
+            {
+                "name": "Risoto de Camarao com Aspargos",
+                "price": 38,
+                "description": "Um delicioso risoto cremoso preparado com camaroes suculentos, aspargos frescos, e finalizado com parmesão ralado"
+            }
+        ],
+
+        "sobremesas": [
+            {
+                "name": "Torta de Chocolate Belga",
+                "price": 15,
+                "description": "Uma irresistivel torta de chocolate belga, servida com uma bola de sorvete de baunilha."
+            },
+            {
+                "name": "Creme Brulee de Baunilha",
+                "price": 18,
+                "description": "Um classico creme brulee de baunilha com uma fina camada de acucar caramelizado"
+            }
+        ]
+    }
+}
