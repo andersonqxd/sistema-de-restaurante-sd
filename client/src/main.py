@@ -17,7 +17,6 @@ def main() -> None:
     client.send_request( json.dumps( data_send ) )
     response = client.get_response()
 
-    print( response )
     print( json.loads( response ) )
 
 

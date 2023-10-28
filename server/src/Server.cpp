@@ -45,7 +45,14 @@ void Server::listen()
         n = recvfrom( udp_socket, ( char * ) buffer, BUFFER_SIZE, MSG_WAITALL, ( struct sockaddr * ) &client_address, &sock_len );
 
         memset( buffer, 0, BUFFER_SIZE );
-        strncpy( buffer, menu->get_tables().dump().c_str(), BUFFER_SIZE );
+
+        std::string payload = menu->get_tables().dump();
+        int payload_size = payload.size();
+
+        std::cout << payload_size << std::endl;
+
+        memcpy( buffer, &payload_size, sizeof( int ) );
+        memcpy( buffer + ( sizeof( int ) ), payload.c_str(), BUFFER_SIZE );
 
         sendto( udp_socket, buffer, BUFFER_SIZE, 0, ( struct sockaddr * ) &client_address, sock_len );
 
