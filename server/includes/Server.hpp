@@ -12,7 +12,7 @@
 #define SERVER_PORT   7000
 #define SERVER_IP     "127.0.0.1"
 
-#define BUFFER_SIZE   1024
+#define BUFFER_SIZE   2024
 
 #define DB_FILE       "./Mocks/db.json"
 

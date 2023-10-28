@@ -87,6 +87,8 @@ class Client:
 
         data, addr = self.__udp.recvfrom( self.__buffer_size )
 
-        return data.decode( 'utf-8' )
+        payload_size = int.from_bytes( data[:4], 'little' )
+
+        return data[ 4:payload_size + 4 ].decode( 'utf-8' )
 
 
