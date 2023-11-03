@@ -1,6 +1,6 @@
 import json
 
-from client.client import Client
+from client.Client import Client
 
 
 SERVER_IP = '127.0.0.1'
@@ -12,12 +12,12 @@ def main() -> None:
         'teste': 'Hello world'
     }
 
-    client = Client( SERVER_IP, SERVER_PORT )
+    client = Client(SERVER_IP, SERVER_PORT)
 
-    client.send_request( json.dumps( data_send ) )
+    client.send_request(json.dumps(data_send))
     response = client.get_response()
 
-    print( json.loads( response ) )
+    print(json.loads(response))
 
 
 if __name__ == '__main__':
