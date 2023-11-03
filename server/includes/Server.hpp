@@ -5,9 +5,11 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <memory>
 
 #include "Globals.hpp"
 #include "Menu.hpp"
+#include "Message.hpp"
 
 #define SERVER_PORT   7000
 #define SERVER_IP     "127.0.0.1"
@@ -33,7 +35,7 @@ class Server
         struct sockaddr_in server_address;
         struct sockaddr_in client_address;
 
-        Menu * menu;
+        std::unique_ptr<Menu> menu;
 
     public:
         /**
@@ -50,6 +52,9 @@ class Server
          * Quando um datagrama é recebido, ele pode ser processado conforme necessário.
          */
         void listen();
+
+
+        std::shared_ptr<Message> get_request();
 };
 
 
