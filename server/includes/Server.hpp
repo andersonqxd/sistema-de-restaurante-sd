@@ -54,7 +54,28 @@ class Server
         void listen();
 
 
+        /**
+         * @brief Obtém uma solicitação (request) da aplicação.
+         *
+         * Esta função retorna um objeto std::shared_ptr<Message> que representa uma solicitação
+         * da aplicação. Um std::shared_ptr é usado para compartilhar a propriedade do objeto
+         * Message, garantindo que ele seja gerenciado adequadamente em termos de memória.
+         *
+         * @return Um std::shared_ptr<Message> que representa a solicitação da aplicação.
+         */
         std::shared_ptr<Message> get_request();
+
+
+        /**
+         * @brief Envia uma resposta para um socket.
+         *
+         * Esta função envia uma resposta no formato JSON para um socket, especificado por seu comprimento
+         * em `sock_len`. A resposta é fornecida como um objeto `json`, que contém os dados a serem enviados.
+         *
+         * @param payload Um objeto json contendo os dados a serem enviados como resposta.
+         * @param sock_len Uma referência para a variável socklen_t que representa o comprimento do socket.
+         */
+        void send_response(const json& payload, socklen_t& sock_len);
 };
 
 
