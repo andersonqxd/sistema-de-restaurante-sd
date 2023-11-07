@@ -1,51 +1,39 @@
-
-#include <iostream>
-#include <map>
-#include <stdexcept>
-#include <memory>
+#include "AgedarMessa.hpp"
 
 
-class MesaOcupada : public std::runtime_error {
-    public:
-        MesaOcupada() : std::runtime_error("A mesa já está ocupada") {}
+ReservarMesa::ReservarMesa() 
+{
+    reserva[1] = std::make_shared<std::string>("");
+    reserva[2] = std::make_shared<std::string>("");
+    reserva[3] = std::make_shared<std::string>("");
+}
+
+
+bool ReservarMesa::procMesa(int idMesa) {
+    auto iter = reserva.find(idMesa);
+    if (iter != reserva.end()) {
+        return true;
+    }
+    return false;
 };
-class RestauranteLotado : public std::runtime_error {
-    public:
-        RestauranteLotado() : std::runtime_error("O restaurante está lotado") {}
-};
-class SemReserva : public std::runtime_error {
-    public:
-        SemReserva() : std::runtime_error("Cliente não tem reservas") {}
-};
 
-class ReservarMesa {
-    private:
-        std::map<int, std::shared_ptr<std::string>> reserva;
-        int totalDeMesas = 10;
-    public:
 
-    bool procMesa(int idMesa) {
-        auto iter = reserva.find(idMesa);
-        if (iter != reserva.end()) {
-            return true;
-        }
-        return false;
+void ReservarMesa::agendarMesa(const std::string& cliente, int IdMesa) {
+    if(IdMesa>= totalDeMesas) {
+        throw RestauranteLotado();
     };
-
-    void agendarMesa(const std::string& cliente, int IdMesa) {
-        if(IdMesa>= totalDeMesas) {
-            throw RestauranteLotado();
-        };
-        if(procMesa(IdMesa)) {
-            throw MesaOcupada();
-        }
-        reserva[IdMesa] = std::make_shared<std::string>(cliente);
-    }
-    void cancelarMesa(int idMesa) {
-        if(!procMesa(idMesa)) {
-            SemReserva();
-        }
-        reserva.erase(idMesa);
+    if(procMesa(IdMesa)) {
+        throw MesaOcupada();
     }
 
-};
+    
+    reserva[IdMesa] = std::make_shared<std::string>(cliente);
+}
+
+
+void ReservarMesa::cancelarMesa(int idMesa) {
+    if(!procMesa(idMesa)) {
+        SemReserva();
+    }
+    reserva.erase(idMesa);
+}
