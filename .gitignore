@@ -1,0 +1,7 @@
+*.o
+Main
+
+__pycache__
+*.pyc
+
+.vscode
