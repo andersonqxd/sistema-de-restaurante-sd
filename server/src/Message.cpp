@@ -21,3 +21,31 @@ json Message::to_json()
 
     return object;
 }
+
+
+MesssageType Message::get_message_type()
+{
+    return message_type;
+}
+
+int Message::get_request_id()
+{
+    return request_id;
+}
+
+std::string Message::get_object_reference()
+{
+    return object_reference;
+}
+
+int Message::get_method_id()
+{
+    return method_id;
+}
+
+std::string Message::get_arguments()
+{
+    return arguments;
+}
+
+

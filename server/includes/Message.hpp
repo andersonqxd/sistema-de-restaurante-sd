@@ -28,7 +28,7 @@ class Message
         int request_id;
         std::string object_reference;
         int method_id;
-        // char * arguments;
+        std::string arguments;
 
     public:
         /**
@@ -47,6 +47,13 @@ class Message
          * @return Um objeto JSON representando a mensagem.
          */
         json to_json();
+
+
+        MesssageType get_message_type();
+        int get_request_id();
+        std::string get_object_reference();
+        int get_method_id();
+        std::string get_arguments();
 };
 
 
