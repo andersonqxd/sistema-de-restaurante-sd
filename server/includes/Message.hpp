@@ -39,7 +39,7 @@ class Message
          * @param object_reference A referência ao objeto relacionado à mensagem.
          * @param method_id O ID do método associado à mensagem.
          */
-        Message( MesssageType message_type, int request_id, std::string object_reference, int method_id );
+        Message( MesssageType message_type, int request_id, std::string object_reference, int method_id, std::string arguments);
 
 
         /**
