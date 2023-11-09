@@ -1,23 +1,23 @@
 import json
+from client.Proxy import Proxy
 
-from client.Client import Client
 
+def print_tables(tables: dict) -> None:
 
-SERVER_IP = '127.0.0.1'
-SERVER_PORT = 7000
+    print('~~' * 20)
+    print(f'{"ESCOLHA UMA MESA":^40}')
+    print('~~' * 20)
+
+    for table_id in tables.keys():
+        print( f'\tNumero: {table_id}\n\tStatus: { "Disponivel" if tables[table_id] else "Ocupada" }\n' )
+
 
 def main() -> None:
-    
-    data_send = {
-        'teste': 'Hello word!'
-    }
+    proxy = Proxy()
 
-    client = Client(SERVER_IP, SERVER_PORT)
+    tables = proxy.get_tables()
 
-    client.send_request(json.dumps(data_send))
-    response = client.get_response()
-
-    print(json.loads(response))
+    print_tables(tables)
 
 
 if __name__ == '__main__':

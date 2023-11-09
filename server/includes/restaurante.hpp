@@ -7,41 +7,45 @@
 #include <exception>
 #include <memory>
 
-class PedidoEmFalta : public std::exception {
-public:
-    const char* what() const throw() {
-        return "Pedido em falta.";
-    }
-};
+#include "Menu.hpp"
 
-class MesaNaoEncontrada : public std::exception {
-public:
-    const char* what() const throw() {
-        return "Mesa não encontrada.";
-    }
-};
+#define DB_FILE       "./Mocks/db.json"
 
-class MesaOcupada : public std::runtime_error {
-    public:
-        MesaOcupada() : std::runtime_error("A mesa já está ocupada") {}
-};
+// class PedidoEmFalta : public std::exception {
+// public:
+//     const char* what() const throw() {
+//         return "Pedido em falta.";
+//     }
+// };
 
-class RestauranteLotado : public std::runtime_error {
-    public:
-        RestauranteLotado() : std::runtime_error("O restaurante está lotado") {}
-};
+// class MesaNaoEncontrada : public std::exception {
+// public:
+//     const char* what() const throw() {
+//         return "Mesa não encontrada.";
+//     }
+// };
 
-class SemReserva : public std::runtime_error {
-    public:
-        SemReserva() : std::runtime_error("Cliente não tem reservas") {}
-};
+// class MesaOcupada : public std::runtime_error {
+//     public:
+//         MesaOcupada() : std::runtime_error("A mesa já está ocupada") {}
+// };
 
-class PedidoEmFalta : public std::exception {
-public:
-    const char* what() const throw() {
-        return "Pedido em falta";
-    }
-};
+// class RestauranteLotado : public std::runtime_error {
+//     public:
+//         RestauranteLotado() : std::runtime_error("O restaurante está lotado") {}
+// };
+
+// class SemReserva : public std::runtime_error {
+//     public:
+//         SemReserva() : std::runtime_error("Cliente não tem reservas") {}
+// };
+
+// class PedidoEmFalta : public std::exception {
+// public:
+//     const char* what() const throw() {
+//         return "Pedido em falta";
+//     }
+// };
 
 
 // CLASS RESTAURANTE //
@@ -52,8 +56,13 @@ class Restaurante {
         std::map<int, std::shared_ptr<int>> pedidos;
         int totalDeMesas = 10;
 
+        std::unique_ptr<Menu> menu;
+
     public:
 
+    Restaurante();
+
+    std::string get_tables();
     bool procMesa(int idMesa);
     void agendarMesa(const std::string& cliente, int IdMesa);
     void fazerPedido(int numeroDaMesa, std::string nomeDoPedido, int idDoPedido);

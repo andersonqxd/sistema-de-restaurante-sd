@@ -8,15 +8,13 @@
 #include <memory>
 
 #include "Globals.hpp"
-#include "Menu.hpp"
 #include "Message.hpp"
+#include "esqueleto.hpp"
 
 #define SERVER_PORT   7000
 #define SERVER_IP     "127.0.0.1"
 
 #define BUFFER_SIZE   2024
-
-#define DB_FILE       "./Mocks/db.json"
 
 
 /**
@@ -35,7 +33,12 @@ class Server
         struct sockaddr_in server_address;
         struct sockaddr_in client_address;
 
-        std::unique_ptr<Menu> menu;
+        std::unique_ptr<Esqueleto> esqueleto;
+
+
+        inline void clear_buffer();
+        inline int read_buffer();
+        inline void write_buffer(const std::string &payload);
 
     public:
         /**
@@ -75,7 +78,7 @@ class Server
          * @param payload Um objeto json contendo os dados a serem enviados como resposta.
          * @param sock_len Uma referência para a variável socklen_t que representa o comprimento do socket.
          */
-        void send_response(const json& payload, socklen_t& sock_len);
+        void send_response(const std::string &payload);
 };
 
 
