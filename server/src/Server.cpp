@@ -37,7 +37,8 @@ std::shared_ptr<Message> Server::get_request()
         payload["message_type"], 
         payload["request_id"], 
         payload["object_reference"], 
-        payload["method_id"]
+        payload["method_id"],
+        payload["arguments"]
     );
 }
 
@@ -68,7 +69,9 @@ void Server::listen()
         
         std::shared_ptr<Message> message = this->get_request();
 
-        std::cout << message->to_json().dump() << std::endl;
+        json objeto = json::parse(message->get_arguments());
+
+        std::cout << objeto["teste"] << std::endl;
 
         this->send_response(menu->get_tables(), sock_len);
 

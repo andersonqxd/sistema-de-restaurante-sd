@@ -9,7 +9,7 @@ SERVER_PORT = 7000
 def main() -> None:
     
     data_send = {
-        'teste': 'Hello world'
+        'teste': 'Hello word!'
     }
 
     client = Client(SERVER_IP, SERVER_PORT)

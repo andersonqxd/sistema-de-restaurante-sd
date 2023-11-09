@@ -67,7 +67,7 @@ class Client:
 
 
     def __create_new_message(self, arguments):
-        return Message(MSG_REQUEST, 1, 'app', 2, arguments)
+        return Message(MSG_REQUEST, 1, 'restaurante', 2, arguments)
 
 
 

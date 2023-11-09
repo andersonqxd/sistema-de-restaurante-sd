@@ -1,12 +1,13 @@
 #include "Message.hpp"
 
 
-Message::Message( MesssageType message_type, int request_id, std::string object_reference, int method_id ) 
+Message::Message( MesssageType message_type, int request_id, std::string object_reference, int method_id, std::string arguments ) 
 {
     this->message_type = message_type;
     this->request_id = request_id;
     this->object_reference = object_reference;
     this->method_id = method_id;
+    this->arguments = arguments;
 }
 
 
@@ -18,6 +19,7 @@ json Message::to_json()
     object[ "request_id" ] = request_id;
     object[ "object_reference" ] = object_reference;
     object[ "method_id" ] = method_id;
+    object[ "arguments" ] = arguments;
 
     return object;
 }
