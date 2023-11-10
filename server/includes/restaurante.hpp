@@ -64,7 +64,7 @@ class Restaurante {
 
     std::string get_tables();
     bool procMesa(int idMesa);
-    void agendarMesa(const std::string& cliente, int IdMesa);
+    std::string agendarMesa(const std::string& cliente, int IdMesa);
     void fazerPedido(int numeroDaMesa, std::string nomeDoPedido, int idDoPedido);
     std::shared_ptr<int> consultarPedido( int idDoPedido);
 };

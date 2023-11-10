@@ -76,7 +76,17 @@ inline void Server::write_buffer(const std::string &payload)
 void Server::send_response(const std::string &payload)
 {
     this->clear_buffer();
-    this->write_buffer(payload);
+    
+    Message message(
+        MesssageType::MSG_REPLY,
+        1,
+        "restaurante",
+        2,
+        payload
+    );
+    
+    
+    this->write_buffer(message.to_json().dump());
 }
 
 
@@ -90,6 +100,7 @@ void Server::listen()
         std::cerr << "Server::listen(): Wait packets" << std::endl;
         
         std::shared_ptr<Message> message = this->get_request();
+
         this->send_response(esqueleto->invoke(message));
 
         std::cout << "Server::listen(): " << std::endl;

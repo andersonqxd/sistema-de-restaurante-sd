@@ -26,9 +26,11 @@ bool Restaurante::procMesa(int idMesa)
 }
 
 
-void Restaurante::agendarMesa(const std::string& cliente, int IdMesa)
-{    
+std::string Restaurante::agendarMesa(const std::string& cliente, int IdMesa)
+{
     reserva[IdMesa] = std::make_shared<std::string>(cliente);
+
+    return std::string("Mesa agendada com sucesso");
 }
 
 

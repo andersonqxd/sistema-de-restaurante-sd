@@ -66,12 +66,12 @@ class Client:
 
 
 
-    def __create_new_message(self, arguments):
-        return Message(MSG_REQUEST, 1, 'restaurante', 1, arguments)
+    def __create_new_message(self, arguments, method_id: int):
+        return Message(MSG_REQUEST, 1, 'restaurante', method_id, arguments)
 
 
 
-    def send_request(self, data: str):
+    def send_request(self, data: str, method_id: int):
         """
         Envia uma solicitação UDP para o servidor remoto com os dados fornecidos.
 
@@ -82,12 +82,12 @@ class Client:
             None
         """
 
-        payload = json.dumps(self.__create_new_message(data).to_json())
+        payload = json.dumps(self.__create_new_message(data, method_id).to_json())
 
         self.__udp.sendto(payload.encode('utf-8'), self.__get_address())
 
 
-    def get_response(self) -> str:
+    def get_response(self) -> Message:
         """
         Recebe uma resposta do servidor remoto e a retorna como uma string codificada em UTF-8.
 
@@ -99,6 +99,14 @@ class Client:
 
         payload_size = int.from_bytes(data[:4], 'little')
 
-        return data[4:payload_size + 4].decode('utf-8')
+        payload = json.loads(data[4:payload_size + 4].decode('utf-8'))
+        
+        return Message(
+            payload['message_type'],
+            payload['request_id'],
+            payload['object_reference'],
+            payload['method_id'],
+            payload['arguments']
+        )
 
 

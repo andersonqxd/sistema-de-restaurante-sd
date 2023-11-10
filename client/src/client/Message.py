@@ -24,3 +24,23 @@ class Message:
             message_json['arguments'] =  self.__arguments
 
         return message_json
+    
+
+    def get_message_type(self):
+        return self.__message_type
+    
+
+    def get_request_id(self):
+        return self.__request_id
+    
+
+    def get_object_reference(self):
+        return self.__object_reference
+    
+
+    def get_method_id(self):
+        return self.__method_id
+    
+
+    def get_arguments(self):
+        return self.__arguments

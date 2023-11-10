@@ -12,6 +12,12 @@ class Proxy:
 
 
     def get_tables(self) -> dict:
-        self.__client.send_request(json.dumps({}))
+        self.__client.send_request(json.dumps({}), 1)
 
-        return json.loads(self.__client.get_response())
+        return json.loads(self.__client.get_response().get_arguments())
+    
+
+    def reserved_table(self, table: dict) -> dict:
+        self.__client.send_request(json.dumps(table), 2)
+
+        return json.loads(self.__client.get_response().get_arguments())

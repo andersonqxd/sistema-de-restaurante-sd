@@ -15,13 +15,14 @@ std::string Esqueleto::invoke(std::shared_ptr<Message> message)
         return dispachante->get_tables();
     
     case 2:
-        /* json Argumentos = json::parse(message->get_arguments());
-            std:: string nomeDoCliente = objeto["nome"];
-            int idMesa = objeto["idMesa"];
+    {
+        json arguments = json::parse(*message->get_arguments());
+        json response;
 
-        despachante.resevarMesa(string nomeDoCliente, idMesa);
-        */
-        break;
+        response["message"] = dispachante->reserved_table(arguments["client_name"], arguments["table_id"]);
+
+        return response.dump();
+    }
     case 3:
         /*
         json Argumentos = json::parse(message->get_arguments());

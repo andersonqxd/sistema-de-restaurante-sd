@@ -12,6 +12,7 @@ class Dispachante
         Dispachante();
 
         std::string get_tables();
+        std::string reserved_table(std::string client_name, int table_id);
 };
 
 

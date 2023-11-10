@@ -12,12 +12,22 @@ def print_tables(tables: dict) -> None:
         print( f'\tNumero: {table_id}\n\tStatus: { "Disponivel" if tables[table_id] else "Ocupada" }\n' )
 
 
+def read_table() -> int:
+    table_id = int(input('Numero da mesa: '))
+    client_name = str(input('Nome: '))
+
+    return { 'table_id': table_id, 'client_name': client_name }
+
+
 def main() -> None:
     proxy = Proxy()
 
-    tables = proxy.get_tables()
+    print_tables(proxy.get_tables())
 
-    print_tables(tables)
+    print(proxy.reserved_table(read_table()))
+
+    print_tables(proxy.get_tables())
+
 
 
 if __name__ == '__main__':
