@@ -43,5 +43,14 @@ void Menu::parse_file()
 
 json Menu::get_tables() 
 {
+
+    std::cout << json_object["tables"] << std::endl;
+    
     return json( json_object[ "tables" ] );
+}
+
+
+void Menu::reserved_table_with_id(int table_id)
+{
+    json_object["tables"][std::to_string(table_id)]["reserved"] = true;
 }

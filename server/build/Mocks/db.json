@@ -1,13 +1,13 @@
 {
     "tables": {
-        "01": {
+        "1": {
             "reserved": false 
         },
-        "02": { 
+        "2": { 
 
             "reserved": false
         },
-        "03": { 
+        "3": { 
             "reserved": false
         }
     },

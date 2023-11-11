@@ -2,6 +2,8 @@
 #define __MENU_HPP__
 
 
+#include <iostream>
+#include <string>
 #include "Globals.hpp"
 #include <fstream>
 
@@ -34,6 +36,12 @@ class Menu
          * @return Retorna um Json com os as messas registradas no sistema.
          */
         json get_tables();
+
+
+        /**
+         * @brief Este metodo muda o status da mesa de disponivel para ocupada
+         */
+        void reserved_table_with_id(int table_id);
 };
 
 

@@ -9,7 +9,7 @@ def print_tables(tables: dict) -> None:
     print('~~' * 20)
 
     for table_id in tables.keys():
-        print( f'\tNumero: {table_id}\n\tStatus: { "Disponivel" if tables[table_id] else "Ocupada" }\n' )
+        print( f'\tNumero: {table_id}\n\tStatus: { "Disponivel" if not tables[table_id]["reserved"] else "Ocupada" }\n' )
 
 
 def read_table() -> int:
