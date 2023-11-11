@@ -39,9 +39,18 @@ class Menu
 
 
         /**
+         * @brief Este metodo retorna o cardapio registrado no sistema.
+         *
+         * @return Retorna um Json com o cardapio registrado no sistema.
+         */
+        json get_menu();
+
+
+        /**
          * @brief Este metodo muda o status da mesa de disponivel para ocupada
          */
         void reserved_table_with_id(int table_id);
+
 };
 
 
