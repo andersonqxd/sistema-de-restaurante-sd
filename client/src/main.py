@@ -27,6 +27,7 @@ def print_menu(menu: dict) -> None:
 
     for product_id in menu.keys():
         print(f'ID: {product_id}\n\tNome: {menu[product_id]["name"]}\n\tPreço: R$ {menu[product_id]["price"]:.2f}\n\tDescricao: {menu[product_id]["description"]}')
+        print(f'\tPreparo: {menu[product_id]["preparation_time"]} min')
 
 
 def main() -> None:
