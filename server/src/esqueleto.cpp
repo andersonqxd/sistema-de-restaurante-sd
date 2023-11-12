@@ -37,8 +37,7 @@ std::string Esqueleto::invoke(std::shared_ptr<Message> message)
         despachante.fazerPedido(IdPedido, idMesa) */
         break;
     case 5:
-        /* despachante.getMenu() */
-        break;
+        return dispachante->get_menu();
 
     default:
         break;

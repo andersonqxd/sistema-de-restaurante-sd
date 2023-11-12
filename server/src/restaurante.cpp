@@ -15,6 +15,12 @@ std::string Restaurante::get_tables()
 }
 
 
+std::string Restaurante::get_menu()
+{
+    return menu->get_menu().dump();
+}
+
+
 bool Restaurante::procMesa(int idMesa)
 {
     auto iter = reserva.find(idMesa);
