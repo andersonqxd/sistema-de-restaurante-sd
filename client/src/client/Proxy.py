@@ -21,3 +21,9 @@ class Proxy:
         self.__client.send_request(json.dumps(table), 2)
 
         return json.loads(self.__client.get_response().get_arguments())
+    
+
+    def get_menu(self) -> dict:
+        self.__client.send_request(json.dumps({}), 5)
+
+        return json.loads(self.__client.get_response().get_arguments())

@@ -19,14 +19,26 @@ def read_table() -> int:
     return { 'table_id': table_id, 'client_name': client_name }
 
 
+
+def print_menu(menu: dict) -> None:
+    print('~~' * 20)
+    print(f'{"CARDAPIO":^40}')
+    print('~~' * 20)
+
+    for product_id in menu.keys():
+        print(f'ID: {product_id}\n\tNome: {menu[product_id]["name"]}\n\tPreço: R$ {menu[product_id]["price"]:.2f}\n\tDescricao: {menu[product_id]["description"]}')
+
+
 def main() -> None:
     proxy = Proxy()
 
     print_tables(proxy.get_tables())
 
-    print(proxy.reserved_table(read_table()))
+    print('~~' * 20)
+    print(proxy.reserved_table(read_table())["message"])
+    print('~~' * 20)
 
-    print_tables(proxy.get_tables())
+    print_menu(proxy.get_menu())
 
 
 
