@@ -30,12 +30,14 @@ std::string Esqueleto::invoke(std::shared_ptr<Message> message)
             despachante.consultaPedido(IdPedido) */
         break;
     case 4:
-        /*
-        json Argumentos = json::parse(message->get_arguments());
-            std:: string idPedido = objeto["IdPedido"];
-            int idMesa = objeto["idMesa"];
-        despachante.fazerPedido(IdPedido, idMesa) */
-        break;
+        {
+            json arguments = json::parse(*message->get_arguments());
+
+            json response;
+            response["message"] = dispachante->new_order(arguments["table_id"], arguments["products"]);
+            
+            return response.dump();
+        }
     case 5:
         return dispachante->get_menu();
 

@@ -30,6 +30,22 @@ def print_menu(menu: dict) -> None:
         print(f'\tPreparo: {menu[product_id]["preparation_time"]} min')
 
 
+def read_products() -> list:
+    print('Digite o id do produto separado por virgula: ')
+
+    products = list()
+
+    while True:
+        product_id = int(input('ID: '))
+
+        products.append(product_id)
+
+        if input('Continuar [s/n]: ') == 'n':
+            break
+
+    return products
+
+
 def main() -> None:
     proxy = Proxy()
 
@@ -40,6 +56,8 @@ def main() -> None:
     print('~~' * 20)
 
     print_menu(proxy.get_menu())
+
+    print(proxy.make_wish(read_products())["message"])
 
 
 

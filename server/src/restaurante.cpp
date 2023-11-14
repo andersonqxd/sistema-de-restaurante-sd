@@ -42,14 +42,29 @@ std::string Restaurante::agendarMesa(const std::string& cliente, int IdMesa)
 }
 
 
-void Restaurante::fazerPedido(int numeroDaMesa, std::string nomeDoPedido, int idDoPedido)
-{
-    pedidos[numeroDaMesa] = std::make_shared<int>(idDoPedido);
-    // std::cout << "Pedido feito com sucesso! Mesa: " << numeroDaMesa << ", Nome do pedido: " << nomeDoPedido << ", ID do pedido: " << idDoPedido << std::endl;
+
+std::shared_ptr<Order> Restaurante::consultarPedido( int idDoPedido)
+{   
+    return pedidos[idDoPedido];
 }
 
 
-std::shared_ptr<int> Restaurante::consultarPedido( int idDoPedido)
-{   
-    return pedidos[idDoPedido];
+std::string Restaurante::new_order(int table_id, std::vector<int> products_ids)
+{
+    int order_time = 0;
+    float order_price = 0.0;
+
+    for (int id = 0; id < products_ids.size(); id++)
+    {
+        json order = menu->get_order(products_ids[id]);
+
+
+        order_time += static_cast<float>(order["preparation_time"]);
+        order_price += static_cast<float>(order["price"]);
+    }
+
+
+    pedidos[table_id] = std::make_shared<Order>(table_id, order_price, order_time, products_ids);
+
+    return "pedido feito com sucesso";
 }

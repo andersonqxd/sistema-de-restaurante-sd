@@ -53,3 +53,8 @@ void Menu::reserved_table_with_id(int table_id)
 {
     json_object["tables"][std::to_string(table_id)]["reserved"] = true;
 }
+
+json Menu::get_order(int products_ids)
+{
+    return json(json_object["menu"][std::to_string(products_ids)]);
+}

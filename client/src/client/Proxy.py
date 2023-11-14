@@ -27,3 +27,9 @@ class Proxy:
         self.__client.send_request(json.dumps({}), 5)
 
         return json.loads(self.__client.get_response().get_arguments())
+    
+
+    def make_wish(self, products: list) -> dict:
+        self.__client.send_request(json.dumps({ 'table_id': 2, 'products': products }), 4)
+
+        return json.loads(self.__client.get_response().get_arguments())

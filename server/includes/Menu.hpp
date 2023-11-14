@@ -51,6 +51,9 @@ class Menu
          */
         void reserved_table_with_id(int table_id);
 
+
+        json get_order(int products_ids);
+
 };
 
 

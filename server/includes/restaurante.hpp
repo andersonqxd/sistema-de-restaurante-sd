@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "Menu.hpp"
+#include "Order.hpp"
 
 #define DB_FILE       "./Mocks/db.json"
 
@@ -53,7 +54,7 @@
 class Restaurante {
     private:
         std::map<int, std::shared_ptr<std::string>> reserva;
-        std::map<int, std::shared_ptr<int>> pedidos;
+        std::map<int, std::shared_ptr<Order>> pedidos;
         int totalDeMesas = 10;
 
         std::unique_ptr<Menu> menu;
@@ -67,8 +68,8 @@ class Restaurante {
     
     bool procMesa(int idMesa);
     std::string agendarMesa(const std::string& cliente, int IdMesa);
-    void fazerPedido(int numeroDaMesa, std::string nomeDoPedido, int idDoPedido);
-    std::shared_ptr<int> consultarPedido( int idDoPedido);
+    std::string new_order(int table_id, std::vector<int> products_ids);
+    std::shared_ptr<Order> consultarPedido(int idDoPedido);
 };
 
 
