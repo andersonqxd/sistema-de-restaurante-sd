@@ -5,17 +5,25 @@
 #include <vector>
 #include <memory>
 
+
+enum OrderStatus {
+    PREPARING,
+    DONE,
+};
+
+
 class Order 
 {
     private:
         int table_id;
         float order_price;
         float preparation_time;
+        OrderStatus status;
         std::unique_ptr<std::vector<int>> products_ids;
 
 
     public:
-        Order(int table_id, float order_price, float preparation_time, std::vector<int> products_ids);
+        Order(int table_id, float order_price, float preparation_time, std::vector<int> products_ids, OrderStatus status = OrderStatus::PREPARING);
 
         std::vector<int> get_products();
 };

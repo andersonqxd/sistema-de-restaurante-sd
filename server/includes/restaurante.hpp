@@ -70,6 +70,7 @@ class Restaurante {
     std::string agendarMesa(const std::string& cliente, int IdMesa);
     std::string new_order(int table_id, std::vector<int> products_ids);
     std::shared_ptr<Order> consultarPedido(int idDoPedido);
+    
 };
 
 
