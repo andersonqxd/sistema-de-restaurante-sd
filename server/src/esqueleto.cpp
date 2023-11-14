@@ -24,11 +24,12 @@ std::string Esqueleto::invoke(std::shared_ptr<Message> message)
         return response.dump();
     }
     case 3:
-        /*
-        json Argumentos = json::parse(message->get_arguments());
-            std:: string idPedido = objeto["IdPedido"];
-            despachante.consultaPedido(IdPedido) */
-        break;
+        // {
+        //     json arguments = json::parse(*message->get_arguments());
+
+        //     despachante->consultaPedido(IdPedido)
+        // break;
+        // }
     case 4:
         {
             json arguments = json::parse(*message->get_arguments());
