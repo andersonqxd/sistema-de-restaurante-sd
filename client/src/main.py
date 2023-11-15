@@ -57,7 +57,9 @@ def main() -> None:
 
     print_menu(proxy.get_menu())
 
-    print(proxy.make_wish(read_products())["message"])
+    print(proxy.make_wish(read_products(), 2)["message"])
+
+    print(proxy.check_status_order(2))
 
 
 

@@ -9,6 +9,7 @@
 
 #include "Menu.hpp"
 #include "Order.hpp"
+#include "Table.hpp"
 
 #define DB_FILE       "./Mocks/db.json"
 
@@ -53,8 +54,7 @@
 
 class Restaurante {
     private:
-        std::map<int, std::shared_ptr<std::string>> reserva;
-        std::map<int, std::shared_ptr<Order>> pedidos;
+        std::map<int, std::shared_ptr<Table>> reserva;
 
         int totalDeMesas { 10 };
         Menu menu { DB_FILE };
@@ -67,7 +67,7 @@ class Restaurante {
     
         std::shared_ptr<std::string> agendarMesa(const std::string& cliente, int IdMesa);
         std::shared_ptr<std::string> new_order(int table_id, std::vector<int> products_ids);
-        std::shared_ptr<Order> consultarPedido(int idDoPedido);
+        std::shared_ptr<std::string> status_order(int table_id);
     
 };
 

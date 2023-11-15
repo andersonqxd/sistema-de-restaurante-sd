@@ -1,5 +1,6 @@
 all:
 	g++ -c -I includes src/Order.cpp -o build/Order.o
+	g++ -c -I includes src/Table.cpp -o build/Table.o
 	g++ -c -I includes src/Dispachante.cpp -o build/Dispachante.o
 	g++ -c -I includes src/restaurante.cpp -o build/restaurante.o
 	g++ -c -I includes src/Menu.cpp -o build/Menu.o

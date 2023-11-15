@@ -18,12 +18,14 @@ std::shared_ptr<std::string> Esqueleto::invoke(std::shared_ptr<Message> message)
             return std::make_shared<std::string>(response.dump());
         }
         case 3:
-            // {
-            //     json arguments = json::parse(*message->get_arguments());
+        {
+            json arguments = json::parse(*message->get_arguments());
+            json response;
 
-            //     despachante->consultaPedido(IdPedido)
-            // break;
-            // }
+            response["message"] = *dispachante.check_status_order(arguments["table_id"]);
+
+            return std::make_shared<std::string>(response.dump());
+        }
         case 4:
         {
             json arguments = json::parse(*message->get_arguments());

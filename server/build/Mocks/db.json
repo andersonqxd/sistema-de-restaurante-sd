@@ -16,37 +16,37 @@
         "1": {
             "name": "Sopa de Abobora", 
             "price": 12.50,
-            "preparation_time": 20, 
+            "preparation_time": 2, 
             "description": "Desfrute de uma saborosa sopa de abobora com croutons e creme de leite."
         },
         "2": {
             "name": "Bruschetta de Tomate e Manjericao",
             "price": 14,
-            "preparation_time": 30,
+            "preparation_time": 3,
             "description": "Deliciosas fatias de pao italiano cobertas com tomates frescos, manjericao e azeite de oliva."
         },
         "3": {
             "name": "File Mignon ao Molho de Vinho Tinto",
             "price": 36,
-            "preparation_time": 20,
+            "preparation_time": 2,
             "description": "Um suculento file mignon grelhado, coberto com um molho encorpado de vinho tinto, acompanhado de batatas rusticas e legumes da estacao."
         },
         "4": {
             "name": "Risoto de Camarao com Aspargos",
             "price": 38,
-            "preparation_time": 40,
+            "preparation_time": 4,
             "description": "Um delicioso risoto cremoso preparado com camaroes suculentos, aspargos frescos, e finalizado com parmesão ralado"
         },
         "5": {
             "name": "Torta de Chocolate Belga",
             "price": 15,
-            "preparation_time": 20,
+            "preparation_time": 2,
             "description": "Uma irresistivel torta de chocolate belga, servida com uma bola de sorvete de baunilha."
         },
         "6": {
             "name": "Creme Brulee de Baunilha",
             "price": 18,
-            "preparation_time": 20,
+            "preparation_time": 2,
             "description": "Um classico creme brulee de baunilha com uma fina camada de acucar caramelizado"
         }
     }

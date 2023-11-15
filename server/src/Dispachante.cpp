@@ -23,3 +23,8 @@ std::shared_ptr<std::string> Dispachante::new_order(int table_id, std::vector<in
     return restaurante.new_order(table_id, products_ids);
 }
 
+
+std::shared_ptr<std::string> Dispachante::check_status_order(int table_id)
+{
+    return restaurante.status_order(table_id);
+}
