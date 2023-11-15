@@ -9,11 +9,9 @@
 
 class Esqueleto
 {
-    std::unique_ptr<Dispachante> dispachante;
+    Dispachante dispachante;
 
 public:
-    Esqueleto();
-
     std::string invoke(std::shared_ptr<Message> message);
 };
 
