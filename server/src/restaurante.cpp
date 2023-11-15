@@ -1,15 +1,15 @@
 #include "restaurante.hpp"
 
 
-std::string Restaurante::get_tables()
+std::shared_ptr<std::string> Restaurante::get_tables()
 {
-    return menu.get_tables().dump();
+    return std::make_shared<std::string>(menu.get_tables().dump());
 }
 
 
-std::string Restaurante::get_menu()
+std::shared_ptr<std::string> Restaurante::get_menu()
 {
-    return menu.get_menu().dump();
+    return std::make_shared<std::string>(menu.get_menu().dump());
 }
 
 
@@ -24,13 +24,13 @@ bool Restaurante::procMesa(int idMesa)
 }
 
 
-std::string Restaurante::agendarMesa(const std::string& cliente, int IdMesa)
+std::shared_ptr<std::string> Restaurante::agendarMesa(const std::string& cliente, int IdMesa)
 {
     reserva[IdMesa] = std::make_shared<std::string>(cliente);
 
     menu.reserved_table_with_id(IdMesa);
 
-    return std::string("Mesa agendada com sucesso");
+    return std::make_shared<std::string>("Mesa agendada com sucesso");
 }
 
 
@@ -41,7 +41,7 @@ std::shared_ptr<Order> Restaurante::consultarPedido( int idDoPedido)
 }
 
 
-std::string Restaurante::new_order(int table_id, std::vector<int> products_ids)
+std::shared_ptr<std::string> Restaurante::new_order(int table_id, std::vector<int> products_ids)
 {
     int order_time = 0;
     float order_price = 0.0;
@@ -58,5 +58,5 @@ std::string Restaurante::new_order(int table_id, std::vector<int> products_ids)
 
     pedidos[table_id] = std::make_shared<Order>(table_id, order_price, order_time, products_ids, OrderStatus::PREPARING);
 
-    return "pedido feito com sucesso";
+    return std::make_shared<std::string>("pedido feito com sucesso");
 }

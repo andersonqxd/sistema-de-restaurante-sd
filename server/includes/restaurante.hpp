@@ -60,14 +60,14 @@ class Restaurante {
         Menu menu { DB_FILE };
 
     public:
+        bool procMesa(int idMesa);
 
-    std::string get_tables();
-    std::string get_menu();
+        std::shared_ptr<std::string> get_tables();
+        std::shared_ptr<std::string> get_menu();
     
-    bool procMesa(int idMesa);
-    std::string agendarMesa(const std::string& cliente, int IdMesa);
-    std::string new_order(int table_id, std::vector<int> products_ids);
-    std::shared_ptr<Order> consultarPedido(int idDoPedido);
+        std::shared_ptr<std::string> agendarMesa(const std::string& cliente, int IdMesa);
+        std::shared_ptr<std::string> new_order(int table_id, std::vector<int> products_ids);
+        std::shared_ptr<Order> consultarPedido(int idDoPedido);
     
 };
 
