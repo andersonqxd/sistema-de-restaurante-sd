@@ -1,23 +1,15 @@
 #include "restaurante.hpp"
 
 
-
-
-Restaurante::Restaurante()
-{
-    menu = std::make_unique<Menu>(DB_FILE);
-}
-
-
 std::string Restaurante::get_tables()
 {
-    return menu->get_tables().dump();
+    return menu.get_tables().dump();
 }
 
 
 std::string Restaurante::get_menu()
 {
-    return menu->get_menu().dump();
+    return menu.get_menu().dump();
 }
 
 
@@ -36,7 +28,7 @@ std::string Restaurante::agendarMesa(const std::string& cliente, int IdMesa)
 {
     reserva[IdMesa] = std::make_shared<std::string>(cliente);
 
-    menu->reserved_table_with_id(IdMesa);
+    menu.reserved_table_with_id(IdMesa);
 
     return std::string("Mesa agendada com sucesso");
 }
@@ -56,7 +48,7 @@ std::string Restaurante::new_order(int table_id, std::vector<int> products_ids)
 
     for (int id = 0; id < products_ids.size(); id++)
     {
-        json order = menu->get_order(products_ids[id]);
+        json order = menu.get_order(products_ids[id]);
 
 
         order_time += static_cast<float>(order["preparation_time"]);
@@ -64,7 +56,7 @@ std::string Restaurante::new_order(int table_id, std::vector<int> products_ids)
     }
 
 
-    pedidos[table_id] = std::make_shared<Order>(table_id, order_price, order_time, products_ids);
+    pedidos[table_id] = std::make_shared<Order>(table_id, order_price, order_time, products_ids, OrderStatus::PREPARING);
 
     return "pedido feito com sucesso";
 }

@@ -55,13 +55,11 @@ class Restaurante {
     private:
         std::map<int, std::shared_ptr<std::string>> reserva;
         std::map<int, std::shared_ptr<Order>> pedidos;
-        int totalDeMesas = 10;
 
-        std::unique_ptr<Menu> menu;
+        int totalDeMesas { 10 };
+        Menu menu { DB_FILE };
 
     public:
-
-    Restaurante();
 
     std::string get_tables();
     std::string get_menu();

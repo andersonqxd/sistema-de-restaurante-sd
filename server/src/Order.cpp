@@ -1,7 +1,7 @@
 #include "Order.hpp"
 
 
-Order::Order(int table_id, float order_price, float preparation_time, std::vector<int> products_ids, OrderStatus status = OrderStatus::PREPARING)
+Order::Order(int table_id, float order_price, float preparation_time, std::vector<int> products_ids, OrderStatus status)
 {
     this->table_id = table_id;
     this->order_price = order_price;

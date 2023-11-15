@@ -23,7 +23,7 @@ class Order
 
 
     public:
-        Order(int table_id, float order_price, float preparation_time, std::vector<int> products_ids, OrderStatus status = OrderStatus::PREPARING);
+        Order(int table_id, float order_price, float preparation_time, std::vector<int> products_ids, OrderStatus status);
 
         std::vector<int> get_products();
 };

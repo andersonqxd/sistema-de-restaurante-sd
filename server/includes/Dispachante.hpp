@@ -6,10 +6,9 @@
 
 class Dispachante 
 {
-    std::unique_ptr<Restaurante> restaurante;
+    Restaurante restaurante;
 
     public:
-        Dispachante();
 
         std::string get_tables();
         std::string get_menu();
