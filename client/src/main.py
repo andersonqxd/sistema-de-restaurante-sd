@@ -2,6 +2,7 @@ import json
 from client.Proxy import Proxy
 
 
+
 def print_tables(tables: dict) -> None:
 
     print('~~' * 20)
@@ -46,6 +47,17 @@ def read_products() -> list:
     return products
 
 
+def show_status_orders(orders: dict):
+    print('~~' * 20)
+    print(f'{"PEDIDOS":^40}')
+    print('~~' * 20)
+
+    print(orders)
+
+    # for key in orders.keys():
+    #     print(f'Pedido de numero: {key} esta {"Pronto" if orders[key] else "sendo Preparando"}')
+
+
 def main() -> None:
     proxy = Proxy()
 
@@ -59,7 +71,7 @@ def main() -> None:
 
     print(proxy.make_wish(read_products(), 2)["message"])
 
-    print(proxy.check_status_order(2))
+    show_status_orders(proxy.check_status_order(2)["message"])
 
 
 

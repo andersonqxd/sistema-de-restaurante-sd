@@ -41,8 +41,7 @@ std::shared_ptr<std::string> Restaurante::status_order(int table_id)
     std::vector<std::shared_ptr<Order>> orders = reserva[table_id]->get_all_orders();
 
     for (int index = 0; index < orders.size(); index++)
-        std::cout << orders[index]->get_status() << std::endl;
-    
+        orders_status[std::to_string(index)] = orders[index]->get_status();
 
     return std::make_shared<std::string>(orders_status.dump());
 }

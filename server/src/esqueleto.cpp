@@ -20,11 +20,8 @@ std::shared_ptr<std::string> Esqueleto::invoke(std::shared_ptr<Message> message)
         case 3:
         {
             json arguments = json::parse(*message->get_arguments());
-            json response;
-
-            response["message"] = *dispachante.check_status_order(arguments["table_id"]);
-
-            return std::make_shared<std::string>(response.dump());
+            
+            return dispachante.check_status_order(arguments["table_id"]);
         }
         case 4:
         {
