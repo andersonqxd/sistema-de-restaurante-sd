@@ -53,7 +53,7 @@ class Message
         int get_request_id();
         std::string get_object_reference();
         int get_method_id();
-        std::shared_ptr<std::string> get_arguments();
+        std::string get_arguments();
 };
 
 

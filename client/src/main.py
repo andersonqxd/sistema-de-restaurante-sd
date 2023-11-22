@@ -52,10 +52,8 @@ def show_status_orders(orders: dict):
     print(f'{"PEDIDOS":^40}')
     print('~~' * 20)
 
-    print(orders)
-
-    # for key in orders.keys():
-    #     print(f'Pedido de numero: {key} esta {"Pronto" if orders[key] else "sendo Preparando"}')
+    for key in orders.keys():
+        print(f'Pedido de numero: {key} esta {"Pronto" if orders[key] else "sendo Preparando"}')
 
 
 def main() -> None:
@@ -63,15 +61,17 @@ def main() -> None:
 
     print_tables(proxy.get_tables())
 
+    table = read_table()
+
     print('~~' * 20)
-    print(proxy.reserved_table(read_table())["message"])
+    print(proxy.reserved_table(table)["message"])
     print('~~' * 20)
 
     print_menu(proxy.get_menu())
 
-    print(proxy.make_wish(read_products(), 2)["message"])
+    print(proxy.make_wish(read_products(), table['table_id'])["message"])
 
-    show_status_orders(proxy.check_status_order(2)["message"])
+    show_status_orders(json.loads(proxy.check_status_order(table['table_id'])["message"]))
 
 
 

@@ -53,6 +53,8 @@ class Client:
         self.__buffer_size = buffer
 
 
+        self.__request_id_count = 1
+
 
     def __get_address(self):
         """
@@ -67,7 +69,9 @@ class Client:
 
 
     def __create_new_message(self, arguments, method_id: int):
-        return Message(MSG_REQUEST, 1, 'restaurante', method_id, arguments)
+        self.__request_id_count += 1
+
+        return Message(MSG_REQUEST, self.__request_id_count, 'restaurante', method_id, arguments)
 
 
 

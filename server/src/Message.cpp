@@ -45,9 +45,9 @@ int Message::get_method_id()
     return method_id;
 }
 
-std::shared_ptr<std::string> Message::get_arguments()
+std::string Message::get_arguments()
 {
-    return std::make_shared<std::string>(arguments);
+    return std::string(arguments);
 }
 
 

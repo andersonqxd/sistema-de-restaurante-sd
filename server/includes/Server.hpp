@@ -33,8 +33,8 @@ class Server
         struct sockaddr_in server_address;
         struct sockaddr_in client_address;
 
-        std::unique_ptr<Esqueleto> esqueleto;
-
+        Esqueleto esqueleto;
+        std::shared_ptr<Message> old_message;
 
         inline void clear_buffer();
         inline int read_buffer();

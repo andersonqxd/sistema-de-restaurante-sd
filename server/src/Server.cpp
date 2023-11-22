@@ -21,8 +21,6 @@ Server::Server()
         std::cout << "Server::Server(): Error bind " << SERVER_IP << " with port " << SERVER_PORT << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    esqueleto = std::make_unique<Esqueleto>();
 }
 
 
@@ -50,13 +48,19 @@ std::shared_ptr<Message> Server::get_request()
     
     json payload = json::parse(buffer);
 
-    return std::make_shared<Message>(
+
+    std::shared_ptr<Message> message = std::make_shared<Message>(
         payload["message_type"], 
         payload["request_id"], 
         payload["object_reference"], 
         payload["method_id"],
         payload["arguments"]
     );
+
+
+    std::cout << message->get_arguments() << std::endl;
+
+    return message;
 }
 
 
@@ -77,16 +81,15 @@ void Server::send_response(std::shared_ptr<std::string> payload)
 {
     this->clear_buffer();
     
-    Message message(
+    this->old_message = std::make_shared<Message>(
         MesssageType::MSG_REPLY,
         1,
         "restaurante",
         2,
         *payload
     );
-    
-    
-    this->write_buffer(message.to_json().dump());
+
+    this->write_buffer(old_message->to_json().dump());
 }
 
 
@@ -101,7 +104,7 @@ void Server::listen()
         
         std::shared_ptr<Message> message = this->get_request();
 
-        this->send_response(esqueleto->invoke(message));
+        this->send_response(esqueleto.invoke(message));
 
         std::cout << "Server::listen(): " << std::endl;
     }
