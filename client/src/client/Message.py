@@ -34,6 +34,10 @@ class Message:
         return self.__request_id
     
 
+    def set_request_id(self, request_id: int) -> None:
+        self.__request_id = request_id
+    
+
     def get_object_reference(self):
         return self.__object_reference
     

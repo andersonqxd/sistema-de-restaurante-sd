@@ -75,27 +75,18 @@ inline void Server::write_buffer(const std::string &payload)
 }
 
 
-void Server::send_response(std::shared_ptr<std::string> payload)
+void Server::send_response(std::shared_ptr<Message> message)
 {
     this->clear_buffer();
     
-    if (old_message->get_request_id() % 3 == 0)
-    {
-        std::shared_ptr<Message> message = std::make_shared<Message>(
-            MesssageType::MSG_REPLY,
-            old_message->get_request_id(),
-            "restaurante",
-            2,
-            *payload
-        );
-
+    if (message->get_request_id() % 3 != 0)
         this->write_buffer(message->to_json().dump());
-
-        old_message = message;
-    }
+    
 
     else
         std::cout << "Server::send_response(): package loss" << std::endl;
+
+    old_message = message;
 }
 
 
@@ -108,6 +99,7 @@ void Server::retransmit_message(std::shared_ptr<Message> message)
         std::cout << "Server::retransmit_message(): message is null" << std::endl;
 }
 
+
 void Server::listen()
 {
 
@@ -119,7 +111,8 @@ void Server::listen()
         
         std::shared_ptr<Message> message = this->get_request();
 
-        if (old_message && old_message->get_request_id() == message->get_method_id())
+
+        if (old_message && old_message->get_request_id() == message->get_request_id())
         {
             std::cout << "Server::listen(): duplicted message" << std::endl;
 
@@ -132,6 +125,14 @@ void Server::listen()
         (*arguments)["method_id"] = message->get_method_id();
         (*arguments)["arguments"] = message->get_arguments();
 
-        this->send_response(esqueleto.invoke(arguments));
+        std::shared_ptr<Message> response = std::make_shared<Message>(
+            MesssageType::MSG_REPLY,
+            message->get_request_id(),
+            "restaurante",
+            2,
+            *esqueleto.invoke(arguments)
+        );
+
+        this->send_response(response);
     }
 }
