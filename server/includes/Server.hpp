@@ -60,11 +60,11 @@ class Server
         /**
          * @brief Obtém uma solicitação (request) da aplicação.
          *
-         * Esta função retorna um objeto std::shared_ptr<Message> que representa uma solicitação
+         * Esta função retorna um objeto std::shared_ptr<json> que representa uma solicitação
          * da aplicação. Um std::shared_ptr é usado para compartilhar a propriedade do objeto
          * Message, garantindo que ele seja gerenciado adequadamente em termos de memória.
          *
-         * @return Um std::shared_ptr<Message> que representa a solicitação da aplicação.
+         * @return Um std::shared_ptr<json> que representa a solicitação da aplicação.
          */
         std::shared_ptr<Message> get_request();
 
@@ -79,6 +79,8 @@ class Server
          * @param sock_len Uma referência para a variável socklen_t que representa o comprimento do socket.
          */
         void send_response(std::shared_ptr<std::string> payload);
+
+        void retransmit_message(std::shared_ptr<Message> message);
 };
 
 

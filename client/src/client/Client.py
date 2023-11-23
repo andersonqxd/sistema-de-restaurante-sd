@@ -53,7 +53,7 @@ class Client:
         self.__buffer_size = buffer
 
 
-        self.__request_id_count = 1
+        self.__request_id_count = 0
 
 
     def __get_address(self):

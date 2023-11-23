@@ -13,7 +13,7 @@ class Esqueleto
     Dispachante dispachante;
 
 public:
-    std::shared_ptr<std::string> invoke(std::shared_ptr<Message> message);
+    std::shared_ptr<std::string> invoke(std::shared_ptr<json> message);
 };
 
 

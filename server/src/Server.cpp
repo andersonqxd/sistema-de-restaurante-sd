@@ -48,7 +48,6 @@ std::shared_ptr<Message> Server::get_request()
     
     json payload = json::parse(buffer);
 
-
     std::shared_ptr<Message> message = std::make_shared<Message>(
         payload["message_type"], 
         payload["request_id"], 
@@ -57,8 +56,7 @@ std::shared_ptr<Message> Server::get_request()
         payload["arguments"]
     );
 
-
-    std::cout << message->get_arguments() << std::endl;
+    std::cout << "request_id: " << message->get_request_id() << std::endl;
 
     return message;
 }
@@ -81,17 +79,34 @@ void Server::send_response(std::shared_ptr<std::string> payload)
 {
     this->clear_buffer();
     
-    this->old_message = std::make_shared<Message>(
-        MesssageType::MSG_REPLY,
-        1,
-        "restaurante",
-        2,
-        *payload
-    );
+    if (old_message->get_request_id() % 3 == 0)
+    {
+        std::shared_ptr<Message> message = std::make_shared<Message>(
+            MesssageType::MSG_REPLY,
+            old_message->get_request_id(),
+            "restaurante",
+            2,
+            *payload
+        );
 
-    this->write_buffer(old_message->to_json().dump());
+        this->write_buffer(message->to_json().dump());
+
+        old_message = message;
+    }
+
+    else
+        std::cout << "Server::send_response(): package loss" << std::endl;
 }
 
+
+void Server::retransmit_message(std::shared_ptr<Message> message) 
+{
+    if (message)
+        this->write_buffer(message->to_json().dump());
+    
+    else
+        std::cout << "Server::retransmit_message(): message is null" << std::endl;
+}
 
 void Server::listen()
 {
@@ -104,8 +119,19 @@ void Server::listen()
         
         std::shared_ptr<Message> message = this->get_request();
 
-        this->send_response(esqueleto.invoke(message));
+        if (old_message && old_message->get_request_id() == message->get_method_id())
+        {
+            std::cout << "Server::listen(): duplicted message" << std::endl;
 
-        std::cout << "Server::listen(): " << std::endl;
+            this->retransmit_message(old_message);
+            continue;
+        }
+
+        std::shared_ptr<json> arguments = std::make_shared<json>();
+
+        (*arguments)["method_id"] = message->get_method_id();
+        (*arguments)["arguments"] = message->get_arguments();
+
+        this->send_response(esqueleto.invoke(arguments));
     }
 }
