@@ -126,7 +126,7 @@ void Server::listen()
         (*arguments)["arguments"] = message->get_arguments();
 
         std::shared_ptr<Message> response = std::make_shared<Message>(
-            MesssageType::MSG_REPLY,
+            MessageType::MSG_REPLY,
             message->get_request_id(),
             "restaurante",
             2,

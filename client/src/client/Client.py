@@ -73,10 +73,38 @@ class Client:
 
 
     def __create_new_message(self, arguments, method_id: int) -> None:
+        """
+        Cria uma nova mensagem para ser enviada.
+
+        Args:
+            arguments (str): Os argumentos associados à mensagem.
+            method_id (int): O identificador do método associado à mensagem.
+
+        Returns:
+            Message: Uma instância da classe Message contendo os detalhes da nova mensagem.
+
+        Note:
+            Esta função é utilizada internamente para criar mensagens de solicitação para a classe 'restaurante'.
+        """
+
         return Message(MSG_REQUEST, self.__request_id_count, 'restaurante', method_id, arguments)
     
 
     def __send_package(self, message: Message) -> None:
+        """
+        Envia um pacote contendo uma mensagem para o endereço UDP associado.
+
+        Args:
+            message (Message): A mensagem a ser enviada.
+
+        Returns:
+            None
+
+        Note:
+            Esta função converte a mensagem para JSON, codifica em UTF-8 e a envia
+            para o endereço UDP associado utilizando o protocolo UDP.
+        """
+        
         payload = json.dumps(message.to_json())
 
         self.__udp.sendto(payload.encode('utf-8'), self.__get_address())
@@ -84,6 +112,20 @@ class Client:
 
 
     def __retransmit_package(self) -> None:
+        """
+        Retransmite um pacote contendo uma mensagem anteriormente armazenada.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        Note:
+            Esta função utiliza a mensagem anteriormente armazenada (__old_message) e a
+            reenvia utilizando a função __send_package.
+        """
+        
         self.__send_package(self.__old_message)
 
 

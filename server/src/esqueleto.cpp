@@ -11,7 +11,7 @@ std::shared_ptr<std::string> Esqueleto::invoke(std::shared_ptr<json> message)
 
             try 
             {
-                response["message"] = *dispachante.get_tables();
+                response["tables"] = *dispachante.get_tables();
                 response["status"] = OK;
             }
 
@@ -60,7 +60,7 @@ std::shared_ptr<std::string> Esqueleto::invoke(std::shared_ptr<json> message)
             {
                 json arguments = json::parse(message->at("arguments").get<std::string>());
 
-                response["message"] = *dispachante.check_status_order(arguments["table_id"]);
+                response["orders"] = *dispachante.check_status_order(arguments["table_id"]);
                 response["status"] = OK;
             }
 
@@ -100,7 +100,7 @@ std::shared_ptr<std::string> Esqueleto::invoke(std::shared_ptr<json> message)
 
             try
             {
-                response["message"] = *dispachante.get_menu();
+                response["menu"] = *dispachante.get_menu();
                 response["status"] = OK;
             }
 

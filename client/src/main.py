@@ -59,19 +59,21 @@ def show_status_orders(orders: dict):
 def main() -> None:
     proxy = Proxy()
 
-    print_tables(proxy.get_tables())
+    print_tables(json.loads(proxy.get_tables()['tables']))
 
     table = read_table()
 
     print('~~' * 20)
-    print(proxy.reserved_table(table)["message"])
+    print(proxy.reserved_table(table)['message'])
     print('~~' * 20)
 
-    print_menu(proxy.get_menu())
+    print_menu(json.loads(proxy.get_menu()['menu']))
 
-    print(proxy.make_wish(read_products(), table['table_id'])["message"])
+    print('~~' * 20)
+    print(proxy.make_wish(read_products(), table['table_id'])['message'])
+    print('~~' * 20)
 
-    show_status_orders(json.loads(proxy.check_status_order(table['table_id'])["message"]))
+    show_status_orders(json.loads(proxy.check_status_order(table['table_id'])['orders']))
 
 
 

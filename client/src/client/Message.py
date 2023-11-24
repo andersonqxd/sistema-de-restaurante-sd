@@ -26,25 +26,70 @@ class Message:
         return message_json
     
 
-    def get_message_type(self):
-        return self.__message_type
-    
+    def get_message_type(self) -> int:
+        """
+        Obtém o tipo de mensagem associado à instância.
 
-    def get_request_id(self):
+        Returns:
+            int: O tipo de mensagem associado à instância.
+        """
+        
+        return self.__message_type
+
+
+    def get_request_id(self) -> int:
+        """
+        Obtém o identificador único da solicitação associado à instância.
+
+        Returns:
+            int: O identificador único da solicitação associado à instância.
+        """
+
+        
         return self.__request_id
-    
+
 
     def set_request_id(self, request_id: int) -> None:
+        """
+        Define o identificador único da solicitação associado à instância.
+
+        Args:
+            request_id (int): O novo identificador único da solicitação.
+
+        Returns:
+            None
+        """
         self.__request_id = request_id
-    
 
-    def get_object_reference(self):
+
+    def get_object_reference(self) -> str:
+        """
+        Obtém a referência do objeto associada à instância.
+
+        Returns:
+            str: A referência do objeto associada à instância.
+        """
+        
         return self.__object_reference
-    
 
-    def get_method_id(self):
+
+    def get_method_id(self) -> int:
+        """
+        Obtém o identificador do método associado à instância.
+
+        Returns:
+            int: O identificador do método associado à instância.
+        """
+        
         return self.__method_id
-    
 
-    def get_arguments(self):
+
+    def get_arguments(self) -> str:
+        """
+        Obtém os argumentos associados à instância.
+
+        Returns:
+            str: Os argumentos associados à instância.
+        """
+        
         return self.__arguments
