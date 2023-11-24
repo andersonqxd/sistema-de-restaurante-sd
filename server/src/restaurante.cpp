@@ -13,19 +13,15 @@ std::shared_ptr<std::string> Restaurante::get_menu()
 }
 
 
-bool Restaurante::procMesa(int idMesa)
-{
-    auto iter = reserva.find(idMesa);
-
-    if (iter != reserva.end())
-        return true;
-
-    return false;
-}
-
-
 std::shared_ptr<std::string> Restaurante::agendarMesa(const std::string& cliente, int IdMesa)
 {
+
+    auto interator = reserva.find(IdMesa);
+
+    if (interator != reserva.end())
+        throw TableAlredyReserved("Mesa ja esta ocupada");
+
+
     reserva[IdMesa] = std::make_shared<Table>(IdMesa, cliente);
 
     menu.reserved_table_with_id(IdMesa);

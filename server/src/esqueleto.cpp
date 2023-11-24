@@ -5,40 +5,124 @@ std::shared_ptr<std::string> Esqueleto::invoke(std::shared_ptr<json> message)
 {
     switch (message->at("method_id").get<int>())
     {
-        case 1:
-            return dispachante.get_tables();
+        case GET_TABLES_RESTURANT:
+        {
+            json response;
+
+            try 
+            {
+                response["message"] = *dispachante.get_tables();
+                response["status"] = OK;
+            }
+
+            catch (const std::exception& err)
+            {
+                response["message"] = "Server Error";
+                response["status"] = INTERNAL_ERROR;
+            }
+
+            return std::make_shared<std::string>(response.dump());
+        }
         
-        case 2:
+        case RESERVED_TABLE_RESTAURANT:
         {
-            json arguments = json::parse(message->at("arguments").get<std::string>());
             json response;
 
-            response["message"] = *dispachante.reserved_table(arguments["client_name"], arguments["table_id"]);
+            try 
+            {
+                json arguments = json::parse(message->at("arguments").get<std::string>());
+
+                response["message"] = *dispachante.reserved_table(arguments["client_name"], arguments["table_id"]);
+                response["status"] = OK;
+            }
+
+            catch (const TableAlredyReserved& table_exception)
+            {
+                response["message"] = table_exception.what();
+                response["status"] = BAB_REQUEST;
+            }
+
+            catch (const std::exception& err)
+            {
+                response["message"] = "Server Error";
+                response["status"] = INTERNAL_ERROR;
+            }
+
 
             return std::make_shared<std::string>(response.dump());
         }
-        case 3:
+
+        case CHECK_STATUS_ORDER:
         {
-            json arguments = json::parse(message->at("arguments").get<std::string>());
             json response;
 
-            response["message"] = *dispachante.check_status_order(arguments["table_id"]);
+            try
+            {
+                json arguments = json::parse(message->at("arguments").get<std::string>());
+
+                response["message"] = *dispachante.check_status_order(arguments["table_id"]);
+                response["status"] = OK;
+            }
+
+            catch (const std::exception& err)
+            {
+                response["message"] = "Server Error";
+                response["status"] = INTERNAL_ERROR;
+            }
 
             return std::make_shared<std::string>(response.dump());
         }
-        case 4:
-        {
-            json arguments = json::parse(message->at("arguments").get<std::string>());
 
+        case MAKE_WISH_RESTAURANT:
+        {
             json response;
-            response["message"] = *dispachante.new_order(arguments["table_id"], arguments["products"]);
+
+            try 
+            {
+                json arguments = json::parse(message->at("arguments").get<std::string>());
+
+                response["message"] = *dispachante.new_order(arguments["table_id"], arguments["products"]);
+                response["status"] = OK;
+            }
+
+            catch (const std::exception& err)
+            {
+                response["message"] = "Server Error";
+                response["status"] = INTERNAL_ERROR;
+            }
             
             return std::make_shared<std::string>(response.dump());
         }
-        case 5:
-            return dispachante.get_menu();
+
+        case GET_MENU_RESTAURANT:
+        {
+            json response;
+
+            try
+            {
+                response["message"] = *dispachante.get_menu();
+                response["status"] = OK;
+            }
+
+            catch (std::exception& err)
+            {
+                response["message"] = "Server Error";
+                response["status"] = INTERNAL_ERROR;
+            }
+
+            return std::make_shared<std::string>(response.dump());
+        }
+
 
         default:
-            return std::make_shared<std::string>("Metodo não encontrado");
+        {
+            json response;
+
+            response["message"] = "Metodo não encontrado";
+            response["status"] = INTERNAL_ERROR;
+
+            return std::make_shared<std::string>(response.dump());
+        }
+
     }
 }

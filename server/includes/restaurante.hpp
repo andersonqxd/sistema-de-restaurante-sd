@@ -4,53 +4,15 @@
 
 #include <iostream>
 #include <map>
-#include <exception>
 #include <memory>
 
 #include "Menu.hpp"
 #include "Order.hpp"
 #include "Table.hpp"
+#include "CustomExceptions.hpp"
 
 #define DB_FILE       "./Mocks/db.json"
 
-// class PedidoEmFalta : public std::exception {
-// public:
-//     const char* what() const throw() {
-//         return "Pedido em falta.";
-//     }
-// };
-
-// class MesaNaoEncontrada : public std::exception {
-// public:
-//     const char* what() const throw() {
-//         return "Mesa não encontrada.";
-//     }
-// };
-
-// class MesaOcupada : public std::runtime_error {
-//     public:
-//         MesaOcupada() : std::runtime_error("A mesa já está ocupada") {}
-// };
-
-// class RestauranteLotado : public std::runtime_error {
-//     public:
-//         RestauranteLotado() : std::runtime_error("O restaurante está lotado") {}
-// };
-
-// class SemReserva : public std::runtime_error {
-//     public:
-//         SemReserva() : std::runtime_error("Cliente não tem reservas") {}
-// };
-
-// class PedidoEmFalta : public std::exception {
-// public:
-//     const char* what() const throw() {
-//         return "Pedido em falta";
-//     }
-// };
-
-
-// CLASS RESTAURANTE //
 
 class Restaurante {
     private:
@@ -60,8 +22,17 @@ class Restaurante {
         Menu menu { DB_FILE };
 
     public:
-        bool procMesa(int idMesa);
-
+        /**
+         * @brief Obtém o menu do restaurante.
+         *
+         * Esta função retorna um ponteiro compartilhado para uma string contendo
+         * a representação JSON do menu do restaurante.
+         *
+         * @note A representação JSON é gerada utilizando a função `dump` do objeto
+         *       associado à variável `menu`.
+         *
+         * @return Um std::shared_ptr<std::string> contendo a representação JSON do menu.
+         */
         std::shared_ptr<std::string> get_tables();
         std::shared_ptr<std::string> get_menu();
     
