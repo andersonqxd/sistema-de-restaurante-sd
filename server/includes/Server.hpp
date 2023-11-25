@@ -78,7 +78,7 @@ class Server
          * @param payload Um objeto json contendo os dados a serem enviados como resposta.
          * @param sock_len Uma referência para a variável socklen_t que representa o comprimento do socket.
          */
-        void send_response(std::shared_ptr<std::string> payload);
+        void send_response(std::shared_ptr<Message> message);
 
         void retransmit_message(std::shared_ptr<Message> message);
 };

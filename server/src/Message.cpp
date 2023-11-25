@@ -1,7 +1,7 @@
 #include "Message.hpp"
 
 
-Message::Message( MesssageType message_type, int request_id, std::string object_reference, int method_id, std::string arguments ) 
+Message::Message( MessageType message_type, int request_id, std::string object_reference, int method_id, std::string arguments ) 
 {
     this->message_type = message_type;
     this->request_id = request_id;
@@ -25,7 +25,7 @@ json Message::to_json()
 }
 
 
-MesssageType Message::get_message_type()
+MessageType Message::get_message_type()
 {
     return message_type;
 }

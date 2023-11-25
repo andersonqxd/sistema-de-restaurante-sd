@@ -47,13 +47,17 @@ class Client:
 
         self.__udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+        # define 5 seg to timeout exception
+        self.__udp.settimeout(5)
+
         self.__ip = ip
         self.__port = port
 
         self.__buffer_size = buffer
 
+        self.__request_id_count = 1
 
-        self.__request_id_count = 0
+        self.__old_message = None
 
 
     def __get_address(self):
@@ -68,10 +72,61 @@ class Client:
 
 
 
-    def __create_new_message(self, arguments, method_id: int):
-        self.__request_id_count += 1
+    def __create_new_message(self, arguments, method_id: int) -> None:
+        """
+        Cria uma nova mensagem para ser enviada.
+
+        Args:
+            arguments (str): Os argumentos associados à mensagem.
+            method_id (int): O identificador do método associado à mensagem.
+
+        Returns:
+            Message: Uma instância da classe Message contendo os detalhes da nova mensagem.
+
+        Note:
+            Esta função é utilizada internamente para criar mensagens de solicitação para a classe 'restaurante'.
+        """
 
         return Message(MSG_REQUEST, self.__request_id_count, 'restaurante', method_id, arguments)
+    
+
+    def __send_package(self, message: Message) -> None:
+        """
+        Envia um pacote contendo uma mensagem para o endereço UDP associado.
+
+        Args:
+            message (Message): A mensagem a ser enviada.
+
+        Returns:
+            None
+
+        Note:
+            Esta função converte a mensagem para JSON, codifica em UTF-8 e a envia
+            para o endereço UDP associado utilizando o protocolo UDP.
+        """
+        
+        payload = json.dumps(message.to_json())
+
+        self.__udp.sendto(payload.encode('utf-8'), self.__get_address())
+
+
+
+    def __retransmit_package(self) -> None:
+        """
+        Retransmite um pacote contendo uma mensagem anteriormente armazenada.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        Note:
+            Esta função utiliza a mensagem anteriormente armazenada (__old_message) e a
+            reenvia utilizando a função __send_package.
+        """
+        
+        self.__send_package(self.__old_message)
 
 
 
@@ -86,9 +141,11 @@ class Client:
             None
         """
 
-        payload = json.dumps(self.__create_new_message(data, method_id).to_json())
+        request_message = self.__create_new_message(data, method_id)
 
-        self.__udp.sendto(payload.encode('utf-8'), self.__get_address())
+        self.__send_package(request_message)
+
+        self.__old_message = request_message
 
 
     def get_response(self) -> Message:
@@ -99,18 +156,28 @@ class Client:
             str: Os dados da resposta como uma string codificada em UTF-8.
         """
 
-        data, addr = self.__udp.recvfrom(self.__buffer_size)
+        while True:
+            try:
+                data, addr = self.__udp.recvfrom(self.__buffer_size)
 
-        payload_size = int.from_bytes(data[:4], 'little')
+                self.__request_id_count += 1
 
-        payload = json.loads(data[4:payload_size + 4].decode('utf-8'))
-        
-        return Message(
-            payload['message_type'],
-            payload['request_id'],
-            payload['object_reference'],
-            payload['method_id'],
-            payload['arguments']
-        )
+                payload_size = int.from_bytes(data[:4], 'little')
+
+                payload = json.loads(data[4:payload_size + 4].decode('utf-8'))
+                
+                return Message(
+                    payload['message_type'],
+                    payload['request_id'],
+                    payload['object_reference'],
+                    payload['method_id'],
+                    payload['arguments']
+                )
+            
+            except socket.timeout:
+                print(f'Timeout(): retransmit package with request_id: {self.__old_message.get_request_id()}')
+
+                self.__retransmit_package()
+
 
 

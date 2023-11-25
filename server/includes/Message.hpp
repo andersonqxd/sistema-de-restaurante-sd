@@ -9,7 +9,7 @@
  *
  * Esta enumeração define os tipos de mensagens usados na comunicação do sistema.
  */
-enum MesssageType {
+enum MessageType {
     MSG_REQUEST = 0,
     MSG_REPLY = 1,
 };
@@ -24,7 +24,7 @@ enum MesssageType {
 class Message 
 {
     private:
-        MesssageType message_type;
+        MessageType message_type;
         int request_id;
         std::string object_reference;
         int method_id;
@@ -39,7 +39,7 @@ class Message
          * @param object_reference A referência ao objeto relacionado à mensagem.
          * @param method_id O ID do método associado à mensagem.
          */
-        Message( MesssageType message_type, int request_id, std::string object_reference, int method_id, std::string arguments);
+        Message( MessageType message_type, int request_id, std::string object_reference, int method_id, std::string arguments);
 
 
         /**
@@ -49,10 +49,39 @@ class Message
         json to_json();
 
 
-        MesssageType get_message_type();
+        /**
+         * @brief Obtém o tipo de mensagem associado à instância.
+         *
+         * @return Um MessageType indicando o tipo de mensagem associado.
+         */
+        MessageType get_message_type();
+
+        /**
+         * @brief Obtém o identificador único da solicitação associado à instância.
+         *
+         * @return Um inteiro representando o identificador único da solicitação.
+         */
         int get_request_id();
+
+        /**
+         * @brief Obtém a referência do objeto associada à instância.
+         *
+         * @return Uma string contendo a referência do objeto associada.
+         */
         std::string get_object_reference();
+
+        /**
+         * @brief Obtém o identificador do método associado à instância.
+         *
+         * @return Um inteiro representando o identificador do método associado.
+         */
         int get_method_id();
+
+        /**
+         * @brief Obtém os argumentos associados à instância.
+         *
+         * @return Uma string contendo os argumentos associados.
+         */
         std::string get_arguments();
 };
 
